@@ -1,6 +1,8 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "hardhat/console.sol";
+
 contract OnchainShop {
 	address public immutable sellerAddress;
 	uint256 public numberOfProducts;
@@ -14,6 +16,8 @@ contract OnchainShop {
 	mapping(bytes32 => bool) public productMapping;
 	Product[] public productArray;
 	mapping(bytes32 => Product) public products;
+
+	mapping(address => bool) public allowedAttesters;
 
 	constructor(address _sellerAddress) {
 		sellerAddress = _sellerAddress;
@@ -31,6 +35,10 @@ contract OnchainShop {
 	function buyProduct(bytes32 productId) public payable {
 		uint256 price = products[productId].price;
 		require(msg.value == price, "Unequal value sent and price");
+
+		if (!allowedAttesters[msg.sender]) {
+			allowedAttesters[msg.sender] = true;
+		}
 
 		(bool sent, ) = sellerAddress.call{ value: price }("");
 		require(sent, "Failed to send Ether");
