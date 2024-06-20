@@ -24,7 +24,7 @@ const deployOnchainShop: DeployFunction = async function (hre: HardhatRuntimeEnv
   await deploy("OnchainShop", {
     from: deployer,
     // Contract constructor arguments
-    args: ["0xd435E23e9A15909CA72B62461975e40Bfc24F38d"],
+    args: ["0xe84680C37f320c56d9F26E549155D33Bd412e7E3"],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.

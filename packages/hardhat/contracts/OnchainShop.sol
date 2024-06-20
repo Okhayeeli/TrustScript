@@ -1,14 +1,12 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-import "hardhat/console.sol";
-
 contract OnchainShop {
-	address public immutable sellerAddress;
+	address public immutable sellerAddress; // 0xe84680C37f320c56d9F26E549155D33Bd412e7E3
 	uint256 public numberOfProducts;
 
 	struct Product {
-		bytes32 productId; // 0x3100000000000000000000000000000000000000000000000000000000000000 / 0x3200000000000000000000000000000000000000000000000000000000000000
+		bytes32 productId; // 0x3100000000000000000000000000000000000000000000000000000000000000
 		string productName;
 		uint256 price;
 	}

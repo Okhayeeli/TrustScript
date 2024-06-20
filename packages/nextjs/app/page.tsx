@@ -10,13 +10,10 @@ import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
-  // const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("ProductReviewAttestation");
   const { data: products, isLoading: isProductsLoading } = useScaffoldReadContract({
     contractName: "OnchainShop",
     functionName: "getAllProducts",
   });
-
-  console.log(products);
 
   return (
     <>
@@ -63,11 +60,12 @@ const Home: NextPage = () => {
                 <div className="card w-96 h-auto bg-base-100 shadow-xl" key={item.productId}>
                   <div className="flex items-center justify-center px-2 pt-2">
                     {/* <Image
-                            src={image}
-                            alt={name}
-                            width={200}
-                            height={180}
-                            className="rounded-xl mt-5" /> */}
+                      src={image}
+                      alt={name}
+                      width={200}
+                      height={180}
+                      className="rounded-xl mt-5" 
+                    /> */}
                   </div>
                   <div className="card-footer mt-auto flex flex-col items-center">
                     <div className="card-body flex-grow flex flex-col items-center text-center">
