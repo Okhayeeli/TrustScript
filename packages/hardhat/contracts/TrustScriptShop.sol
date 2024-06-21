@@ -4,24 +4,7 @@ pragma solidity >=0.8.0 <0.9.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./TrustScriptToken.sol";
-import "./ProductReviewAttester.sol";
-
-error TrustScriptShop__ExistedProductId(uint256 productId);
-error TrustScriptShop__NotExistedProductId(uint256 productId);
-error TrustScriptShop__UnequalPriceInETHAndPriceInToken(
-	uint256 priceInETH,
-	uint256 priceInToken
-);
-error TrustScriptShop__UnequalAmountOfETHAndPriceInETH(
-	uint256 amountOfETH,
-	uint256 priceInETH
-);
-error TrustScriptShop__UnequalAmountOfTokenAndPriceInToken(
-	uint256 amountOfToken,
-	uint256 priceInToken
-);
-error TrustScriptShop__FailedToSendETH();
-error TrustScriptShop__UnauthorizedAttester(address attesterAddress);
+import "./TrustScriptProductReviewAttester.sol";
 
 contract TrustScriptShop is Ownable {
 	struct Product {
@@ -33,12 +16,13 @@ contract TrustScriptShop is Ownable {
 
 	TrustScriptToken public trustScriptToken;
 	uint256 public constant TOKENS_PER_ETH = 1000;
+	uint256 public constant REVIEW_PRODUCT_REWARD = 5;
 	mapping(uint256 => bool) public productsMapping;
 	Product[] public productsArray;
 	mapping(uint256 => Product) public products;
 	uint256 public numberOfProducts;
 	mapping(address => bool) public allowedAttesters;
-	ProductReviewAttester public productReviewAttester;
+	TrustScriptProductReviewAttester public trustScriptProductReviewAttester;
 
 	event AddProduct(Product product);
 	event BuyProductWithETH(Product product);
@@ -48,6 +32,23 @@ contract TrustScriptShop is Ownable {
 	event WithdrawETH(uint256 amountOfETH);
 	event WithdrawToken(uint256 amountOfToken);
 
+	error TrustScriptShop__ExistedProductId(uint256 productId);
+	error TrustScriptShop__NotExistedProductId(uint256 productId);
+	error TrustScriptShop__UnequalPriceInETHAndPriceInToken(
+		uint256 priceInETH,
+		uint256 priceInToken
+	);
+	error TrustScriptShop__UnequalAmountOfETHAndPriceInETH(
+		uint256 amountOfETH,
+		uint256 priceInETH
+	);
+	error TrustScriptShop__UnequalAmountOfTokenAndPriceInToken(
+		uint256 amountOfToken,
+		uint256 priceInToken
+	);
+	error TrustScriptShop__FailedToSendETH();
+	error TrustScriptShop__UnauthorizedAttester(address attesterAddress);
+
 	modifier onlyAllowedAttesters() {
 		if (!allowedAttesters[msg.sender])
 			revert TrustScriptShop__UnauthorizedAttester(msg.sender);
@@ -56,13 +57,13 @@ contract TrustScriptShop is Ownable {
 
 	constructor(
 		address ownerAddress,
-		address tokenAddress,
-		address productReviewAttesterAddress
+		address trustScriptTokenAddress,
+		address trustScriptProductReviewAttesterAddress
 	) {
 		super.transferOwnership(ownerAddress);
-		trustScriptToken = TrustScriptToken(tokenAddress);
-		productReviewAttester = ProductReviewAttester(
-			productReviewAttesterAddress
+		trustScriptToken = TrustScriptToken(trustScriptTokenAddress);
+		trustScriptProductReviewAttester = TrustScriptProductReviewAttester(
+			trustScriptProductReviewAttesterAddress
 		);
 	}
 
@@ -72,8 +73,10 @@ contract TrustScriptShop is Ownable {
 		}
 
 		if (
-			(product.priceInETH * TOKENS_PER_ETH) / 1 ether !=
-			product.priceInToken
+			product.priceInETH *
+				TOKENS_PER_ETH *
+				10 ** trustScriptToken.decimals() !=
+			product.priceInToken * 1 ether
 		) {
 			revert TrustScriptShop__UnequalPriceInETHAndPriceInToken(
 				product.priceInETH,
@@ -114,10 +117,7 @@ contract TrustScriptShop is Ownable {
 		emit BuyProductWithETH(products[id]);
 	}
 
-	function buyProductWithToken(
-		uint256 id,
-		uint256 amountOfToken
-	) public payable {
+	function buyProductWithToken(uint256 id, uint256 amountOfToken) public {
 		if (!productsMapping[id]) {
 			revert TrustScriptShop__NotExistedProductId(id);
 		}
@@ -140,20 +140,30 @@ contract TrustScriptShop is Ownable {
 	}
 
 	function reviewProduct(
-		ProductReview memory productReview
+		uint256 id,
+		string memory review
 	) public onlyAllowedAttesters {
-		if (!productsMapping[productReview.productId]) {
-			revert TrustScriptShop__NotExistedProductId(
-				productReview.productId
-			);
+		if (!productsMapping[id]) {
+			revert TrustScriptShop__NotExistedProductId(id);
 		}
 
-		bytes32 uid = productReviewAttester.attestProductReview(productReview);
+		ProductReview memory productReview = ProductReview(
+			id,
+			msg.sender,
+			review
+		);
 
-		emit ReviewProduct(productReview, uid);
+		bytes32 attestationUID = trustScriptProductReviewAttester
+			.attestProductReview(productReview, owner());
 
-		trustScriptToken.mint(msg.sender, 5 * 10 ** 18);
-		emit MintTokenToBuyer(msg.sender, 5);
+		emit ReviewProduct(productReview, attestationUID);
+
+		trustScriptToken.mint(
+			msg.sender,
+			REVIEW_PRODUCT_REWARD * 10 ** trustScriptToken.decimals()
+		);
+
+		emit MintTokenToBuyer(msg.sender, REVIEW_PRODUCT_REWARD);
 	}
 
 	function withdrawETH() public onlyOwner {

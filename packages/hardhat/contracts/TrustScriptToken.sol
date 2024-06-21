@@ -4,10 +4,10 @@ pragma solidity >=0.8.0 <0.9.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-error TrustScriptToken__UnauthorizedMinter(address minterAddress);
-
 contract TrustScriptToken is ERC20, Ownable {
-	mapping(address => bool) private allowedMinters;
+	mapping(address => bool) public allowedMinters;
+
+	error TrustScriptToken__UnauthorizedMinter(address minterAddress);
 
 	modifier onlyAllowedMinters() {
 		if (!allowedMinters[msg.sender])
@@ -19,7 +19,7 @@ contract TrustScriptToken is ERC20, Ownable {
 		super.transferOwnership(ownerAddress);
 
 		allowedMinters[ownerAddress] = true;
-		_mint(ownerAddress, 1000 * 10 ** 18);
+		_mint(ownerAddress, 1000 * 10 ** decimals());
 	}
 
 	function mint(

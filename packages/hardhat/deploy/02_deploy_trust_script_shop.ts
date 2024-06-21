@@ -25,13 +25,20 @@ const deployTrustScriptShop: DeployFunction = async function (hre: HardhatRuntim
   const trustScriptToken = await hre.ethers.getContract<Contract>("TrustScriptToken", deployer);
   const trustScriptTokenAddress = await trustScriptToken.getAddress();
 
-  const productReviewAttester = await hre.ethers.getContract<Contract>("ProductReviewAttester", deployer);
-  const productReviewAttesterAddress = await productReviewAttester.getAddress();
+  const trustScriptProductReviewAttester = await hre.ethers.getContract<Contract>(
+    "TrustScriptProductReviewAttester",
+    deployer,
+  );
+  const trustScriptProductReviewAttesterAddress = await trustScriptProductReviewAttester.getAddress();
 
   await deploy("TrustScriptShop", {
     from: deployer,
     // Contract constructor arguments
-    args: ["0x1Db9A0a2eD105aBf4862337084C907f5763aD491", trustScriptTokenAddress, productReviewAttesterAddress],
+    args: [
+      "0x1Db9A0a2eD105aBf4862337084C907f5763aD491",
+      trustScriptTokenAddress,
+      trustScriptProductReviewAttesterAddress,
+    ],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.

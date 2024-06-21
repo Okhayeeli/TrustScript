@@ -7,7 +7,7 @@ import { DeployFunction } from "hardhat-deploy/types";
  *
  * @param hre HardhatRuntimeEnvironment object.
  */
-const deployTrustScriptToken: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+const deployTrustScriptProductReviewAttester: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   /*
     On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
 
@@ -21,13 +21,12 @@ const deployTrustScriptToken: DeployFunction = async function (hre: HardhatRunti
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  await deploy("ProductReviewAttester", {
+  await deploy("TrustScriptProductReviewAttester", {
     from: deployer,
     // Contract constructor arguments
     args: [
       "0x4200000000000000000000000000000000000021",
-      "0x0000000000000000000000000000000000000000000000000000000000000000",
-      "0x1Db9A0a2eD105aBf4862337084C907f5763aD491",
+      "0xa844aad897e631c5200bc2a0f5c093eeb3e96baa4f8428d93dbcb76e775906a9", // ProductReview Schema
     ],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
@@ -36,8 +35,8 @@ const deployTrustScriptToken: DeployFunction = async function (hre: HardhatRunti
   });
 };
 
-export default deployTrustScriptToken;
+export default deployTrustScriptProductReviewAttester;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags YourToken
-deployTrustScriptToken.tags = ["TrustScriptToken"];
+deployTrustScriptProductReviewAttester.tags = ["TrustScriptProductReviewAttester"];
