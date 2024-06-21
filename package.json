@@ -43,6 +43,7 @@
     "@coinbase/wallet-sdk": "4.0.0-beta.7"
   },
   "dependencies": {
-    "@ethereum-attestation-service/eas-contracts": "^1.7.1"
+    "@ethereum-attestation-service/eas-contracts": "^1.7.1",
+    "antd": "^5.18.3"
   }
 }
