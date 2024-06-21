@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     OnchainShop: {
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi: [
         {
           inputs: [
@@ -105,6 +105,218 @@ const deployedContracts = {
                 },
               ],
               internalType: "struct OnchainShop.Product[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "numberOfProducts",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "productArray",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "productId",
+              type: "bytes32",
+            },
+            {
+              internalType: "string",
+              name: "productName",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          name: "productMapping",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          name: "products",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "productId",
+              type: "bytes32",
+            },
+            {
+              internalType: "string",
+              name: "productName",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "sellerAddress",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    OnchainShopV2: {
+      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_sellerAddress",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "bytes32",
+                  name: "productId",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "string",
+                  name: "productName",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "price",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct OnchainShopV2.Product",
+              name: "_product",
+              type: "tuple",
+            },
+          ],
+          name: "addProduct",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "allowedAttesters",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "productId",
+              type: "bytes32",
+            },
+          ],
+          name: "buyProduct",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllProducts",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "bytes32",
+                  name: "productId",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "string",
+                  name: "productName",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "price",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct OnchainShopV2.Product[]",
               name: "",
               type: "tuple[]",
             },
