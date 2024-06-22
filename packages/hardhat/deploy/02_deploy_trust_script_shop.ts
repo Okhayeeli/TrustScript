@@ -34,16 +34,32 @@ const deployTrustScriptShop: DeployFunction = async function (hre: HardhatRuntim
   await deploy("TrustScriptShop", {
     from: deployer,
     // Contract constructor arguments
-    args: [
-      "0x1Db9A0a2eD105aBf4862337084C907f5763aD491",
-      trustScriptTokenAddress,
-      trustScriptProductReviewAttesterAddress,
-    ],
+    args: [deployer, trustScriptTokenAddress, trustScriptProductReviewAttesterAddress],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
+
+  //Add 6 products
+  const trustScriptShop = await hre.ethers.getContract<Contract>("TrustScriptShop", deployer);
+
+  const productNames = ["Coin Cap", "Bitcoin Hoodie", "Brian Beanie", "Onchain Pin", "Coinbrew", "T-shirt"];
+
+  for (let i = 1; i <= 6; i++) {
+    const product = {
+      id: i,
+      name: productNames[i - 1],
+      priceInETH: hre.ethers.parseEther((0.001 * i).toString()),
+      priceInToken: hre.ethers.parseEther((1 * i).toString()),
+    };
+
+    console.log(`Adding product ${i} to TS Shop`);
+    await trustScriptShop.addProduct(product);
+  }
+
+  // Transfer ownership
+  await trustScriptShop.transferOwnership("0x93496ef70EA5A1635B52CdEcbB73cc0360619cE7");
 };
 
 export default deployTrustScriptShop;
