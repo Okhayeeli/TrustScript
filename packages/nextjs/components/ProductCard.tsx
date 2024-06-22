@@ -28,12 +28,12 @@ export const ProductCard: FC<{ product: Product }> = ({ product }) => {
         <div className="flex flex-col items-center mb-1 space-y-4 w-full">
           <div className="flex items-center justify-between w-full px-14">
             <p className="text-l">{formatEther(product.priceInETH)} ETH</p>
-            <button className="btn btn-primary ml-4">Buy</button>
+            <button className="btn btn-primary ml-4 px-7">Buy</button>
           </div>
 
           <div className="flex items-center justify-between w-full px-14">
             <p className="text-l">{formatEther(product.priceInToken)} TST</p>
-            <button className="btn btn-primary ml-4">Buy</button>
+            <button className="btn btn-primary ml-4 px-7">Buy</button>
           </div>
         </div>
       </div>
