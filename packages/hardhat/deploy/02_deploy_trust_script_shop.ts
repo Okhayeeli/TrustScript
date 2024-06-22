@@ -54,7 +54,7 @@ const deployTrustScriptShop: DeployFunction = async function (hre: HardhatRuntim
       priceInToken: hre.ethers.parseEther((1 * i).toString()),
     };
 
-    console.log(`Adding product ${i} to TS Shop`);
+    console.log(`Adding product ${i} to TrustScript Shop`);
     await trustScriptShop.addProduct(product);
   }
 

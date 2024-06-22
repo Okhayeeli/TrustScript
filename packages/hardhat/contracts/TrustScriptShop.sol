@@ -21,6 +21,8 @@ contract TrustScriptShop is Ownable {
 	Product[] public productsArray;
 	mapping(uint256 => Product) public products;
 	uint256 public numberOfProducts;
+	ProductReview[] public productReviewsArray;
+	uint256 public numberOfProductReviews;
 	mapping(address => bool) public allowedAttesters;
 	TrustScriptProductReviewAttester public trustScriptProductReviewAttester;
 
@@ -158,6 +160,9 @@ contract TrustScriptShop is Ownable {
 
 		emit ReviewProduct(productReview, attestationUID);
 
+		productReviewsArray.push(productReview);
+		numberOfProductReviews++;
+
 		trustScriptToken.mint(
 			msg.sender,
 			REVIEW_PRODUCT_REWARD * 10 ** trustScriptToken.decimals()
@@ -198,5 +203,21 @@ contract TrustScriptShop is Ownable {
 			allProducts[i] = productsArray[i];
 		}
 		return allProducts;
+	}
+
+	function getAllProductReviews()
+		public
+		view
+		returns (ProductReview[] memory allProductReviews)
+	{
+		if (numberOfProductReviews == 0) {
+			return new ProductReview[](0);
+		}
+
+		allProductReviews = new ProductReview[](numberOfProductReviews);
+		for (uint i = 0; i < numberOfProductReviews; i++) {
+			allProductReviews[i] = productReviewsArray[i];
+		}
+		return allProductReviews;
 	}
 }

@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     TrustScriptProductReviewAttester: {
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      address: "0x59b670e9fA9D0A427751Af201D676719a970857b",
       abi: [
         {
           inputs: [
@@ -101,7 +101,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     TrustScriptShop: {
-      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      address: "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
       abi: [
         {
           inputs: [
@@ -528,6 +528,36 @@ const deployedContracts = {
         },
         {
           inputs: [],
+          name: "getAllProductReviews",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "productId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "buyerAddress",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "review",
+                  type: "string",
+                },
+              ],
+              internalType: "struct ProductReview[]",
+              name: "allProductReviews",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
           name: "getAllProducts",
           outputs: [
             {
@@ -563,6 +593,19 @@ const deployedContracts = {
         },
         {
           inputs: [],
+          name: "numberOfProductReviews",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
           name: "numberOfProducts",
           outputs: [
             {
@@ -582,6 +625,35 @@ const deployedContracts = {
               internalType: "address",
               name: "",
               type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "productReviewsArray",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "productId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "buyerAddress",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "review",
+              type: "string",
             },
           ],
           stateMutability: "view",
@@ -760,7 +832,7 @@ const deployedContracts = {
       },
     },
     TrustScriptToken: {
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      address: "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
       abi: [
         {
           inputs: [
