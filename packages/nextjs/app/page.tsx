@@ -6,14 +6,15 @@ import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
-import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
+
+// import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
-  const { data: products, isLoading: isProductsLoading } = useScaffoldReadContract({
-    contractName: "OnchainShop",
-    functionName: "getAllProducts",
-  });
+  // const { data: products, isLoading: isProductsLoading } = useScaffoldReadContract({
+  //   contractName: "TrustScriptShop",
+  //   functionName: "getAllProducts",
+  // });
 
   return (
     <>
@@ -50,29 +51,28 @@ const Home: NextPage = () => {
           </p>
         </div>
 
-        {isProductsLoading ? (
+        {/* {isProductsLoading ? (
           <span className="loading loading-spinner"></span>
         ) : (
           <div className="container mx-auto p-4">
             <h1 className="text-5xl font-bold italic mb-4 text-center mb-4 mt-3">Menu</h1>
             <div className="flex flex-wrap justify-center gap-6">
               {products?.map(item => (
-                <div className="card w-96 h-auto bg-base-100 shadow-xl" key={item.productId}>
+                <div className="card w-96 h-auto bg-base-100 shadow-xl" key={item.id}>
                   <div className="flex items-center justify-center px-2 pt-2">
-                    {/* <Image
+                    { <Image
                       src={image}
                       alt={name}
                       width={200}
                       height={180}
                       className="rounded-xl mt-5" 
-                    /> */}
+                    /> }
                   </div>
                   <div className="card-footer mt-auto flex flex-col items-center">
                     <div className="card-body flex-grow flex flex-col items-center text-center">
-                      <h2 className="card-title">{item.productName}</h2>
-                      <p>ABC123 ABC123</p>
+                      <h2 className="card-title">{item.name}</h2>
                     </div>
-                    <p className="font-bold mb-2 text-xl">{item.price.toString()} wei</p>
+                    <p className="font-bold mb-2 text-xl">{item.priceInETH.toString()} wei</p>
                     <div className="card-actions mb-5">
                       <button className="btn btn-primary">Buy</button>
                     </div>
@@ -81,7 +81,7 @@ const Home: NextPage = () => {
               ))}
             </div>
           </div>
-        )}
+        )} */}
 
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
           <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
