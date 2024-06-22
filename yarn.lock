@@ -569,6 +569,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ethereum-attestation-service/eas-sdk@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@ethereum-attestation-service/eas-sdk@npm:2.3.0"
+  dependencies:
+    "@ethereum-attestation-service/eas-contracts": 1.4.1
+    "@openzeppelin/merkle-tree": ^1.0.6
+    ethers: ^6.11.1
+    js-base64: ^3.7.7
+    lodash: ^4.17.21
+    multiformats: 9.9.0
+    pako: ^2.1.0
+    semver: ^7.6.0
+  checksum: b78dc1495e2f6aa39d0caf3a5008915e7e6b1c01857395ce359fa343725408b6af082e762febb5327d0e460d549ff703e99806432f56c12bbcafb5749a6e8867
+  languageName: node
+  linkType: hard
+
 "@ethereumjs/common@npm:^3.2.0":
   version: 3.2.0
   resolution: "@ethereumjs/common@npm:3.2.0"
@@ -2008,6 +2024,16 @@ __metadata:
   version: 4.9.3
   resolution: "@openzeppelin/contracts@npm:4.9.3"
   checksum: 4932063e733b35fa7669b9fe2053f69b062366c5c208b0c6cfa1ac451712100c78acff98120c3a4b88d94154c802be05d160d71f37e7d74cadbe150964458838
+  languageName: node
+  linkType: hard
+
+"@openzeppelin/merkle-tree@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@openzeppelin/merkle-tree@npm:1.0.6"
+  dependencies:
+    "@ethersproject/abi": ^5.7.0
+    ethereum-cryptography: ^1.1.2
+  checksum: 1f6bfd986e10fa9b699de878ae606c5bffbf21b47b10c52ca9efb5de8d42fc2df0221c05ddbb6a7a617e4c2f758b151b8624806f4184a3084d66de418c9d9c28
   languageName: node
   linkType: hard
 
@@ -7134,7 +7160,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethereum-cryptography@npm:^1.0.3":
+"ethereum-cryptography@npm:^1.0.3, ethereum-cryptography@npm:^1.1.2":
   version: 1.2.0
   resolution: "ethereum-cryptography@npm:1.2.0"
   dependencies:
@@ -12933,6 +12959,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "se-2@workspace:."
   dependencies:
+    "@ethereum-attestation-service/eas-sdk": ^2.3.0
     husky: ^8.0.1
     lint-staged: ^13.0.3
   languageName: unknown

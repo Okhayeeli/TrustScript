@@ -7,12 +7,7 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useAccount } from "wagmi";
 import { Bars3Icon, BoltIcon, BugAntIcon, CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  BaseFaucetsButton,
-  FaucetButton,
-  RainbowKitCustomConnectButton,
-  SuperchainFaucetButton,
-} from "~~/components/scaffold-eth";
+import { BaseFaucetsButton, FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 
 type HeaderMenuLink = {
@@ -29,6 +24,11 @@ export const menuLinks: HeaderMenuLink[] = [
   {
     label: "Events",
     href: "/events",
+    icon: <BoltIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Review",
+    href: "/viewReview",
     icon: <BoltIcon className="h-4 w-4" />,
   },
   {
@@ -145,7 +145,6 @@ export const Header = () => {
         ) : null}
         <RainbowKitCustomConnectButton />
         <FaucetButton />
-        <SuperchainFaucetButton />
         <BaseFaucetsButton />
       </div>
     </div>
