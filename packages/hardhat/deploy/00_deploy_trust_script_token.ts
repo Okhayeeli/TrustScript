@@ -21,6 +21,18 @@ const deployTrustScriptToken: DeployFunction = async function (hre: HardhatRunti
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
+  // Base Sepolia
+  // await deploy("TrustScriptToken", {
+  //   from: deployer,
+  //   // Contract constructor arguments
+  //   args: ["0x35fAadD6fC68619b72A7Bfb871eDcC069C2f1bc3"],
+  //   log: true,
+  //   // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+  //   // automatically mining the contract deployment transaction. There is no effect on live networks.
+  //   autoMine: true,
+  // });
+
+  // Localhost
   await deploy("TrustScriptToken", {
     from: deployer,
     // Contract constructor arguments

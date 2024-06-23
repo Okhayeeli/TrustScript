@@ -7,11 +7,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract TrustScriptToken is ERC20, Ownable {
 	mapping(address => bool) public allowedMinters;
 
-	error TrustScriptToken__UnauthorizedMinter(address minterAddress);
+	error TrustScriptToken__DisallowedMinter(address minterAddress);
 
 	modifier onlyAllowedMinters() {
 		if (!allowedMinters[msg.sender])
-			revert TrustScriptToken__UnauthorizedMinter(msg.sender);
+			revert TrustScriptToken__DisallowedMinter(msg.sender);
 		_;
 	}
 

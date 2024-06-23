@@ -26,7 +26,7 @@ const deployTrustScriptProductReviewAttester: DeployFunction = async function (h
     // Contract constructor arguments
     args: [
       "0x4200000000000000000000000000000000000021",
-      "0xa844aad897e631c5200bc2a0f5c093eeb3e96baa4f8428d93dbcb76e775906a9", // ProductReview Schema
+      "0xa844aad897e631c5200bc2a0f5c093eeb3e96baa4f8428d93dbcb76e775906a9", // ProductReviewSchemaUID
     ],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
