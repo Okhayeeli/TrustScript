@@ -1,6 +1,7 @@
 "use client";
 
 import { NextPage } from "next";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 
 const ProductReviews: NextPage = () => {
@@ -24,6 +25,15 @@ const ProductReviews: NextPage = () => {
               <span className="font-medium">{review.review}</span> said:
             </p>
             <p className="text-lg italic">{review.review}</p>
+            <a
+              href={`https://base-sepolia.easscan.org/attestation/view/${review.attestationUID}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-2 text-blue-500 hover:text-blue-700"
+            >
+              <MagnifyingGlassIcon className="h-5 w-5 inline" />
+              <span className="ml-1">View Attestation</span>
+            </a>
           </div>
         ))
       ) : (
