@@ -4,12 +4,6 @@ pragma solidity >=0.8.0 <0.9.0;
 import { IEAS, AttestationRequest, AttestationRequestData } from "@ethereum-attestation-service/eas-contracts/contracts/IEAS.sol";
 import { NO_EXPIRATION_TIME, EMPTY_UID } from "@ethereum-attestation-service/eas-contracts/contracts/Common.sol";
 
-struct ProductReview {
-	uint256 productId;
-	address buyerAddress;
-	string review;
-}
-
 /// @title TrustScriptProductReviewAttester
 /// @notice Ethereum Attestation Service - Example
 contract TrustScriptProductReviewAttester {
@@ -32,10 +26,15 @@ contract TrustScriptProductReviewAttester {
 	}
 
 	/// @notice Attests to a schema that receives a ProductReview parameter.
-	/// @param productReview The ProductReview value to pass to to the resolver.
+	/// @param productId The uint256 value to pass to to the resolver.
+	/// @param buyerAddress The address value to pass to to the resolver.
+	/// @param review The string value to pass to to the resolver.
+	/// @param sellerAddress The address value to pass to to the resolver.
 	/// @return attestationUID The UID of the new attestation.
 	function attestProductReview(
-		ProductReview memory productReview,
+		uint256 productId,
+		address buyerAddress,
+		string memory review,
 		address sellerAddress
 	) external returns (bytes32 attestationUID) {
 		// return
@@ -47,17 +46,13 @@ contract TrustScriptProductReviewAttester {
 		// 				expirationTime: NO_EXPIRATION_TIME, // No expiration time
 		// 				revocable: true,
 		// 				refUID: EMPTY_UID, // No references UI
-		// 				data: abi.encode(
-		// 					productReview.productId,
-		// 					productReview.buyerAddress,
-		// 					productReview.review
-		// 				),
+		// 				data: abi.encode(productId, buyerAddress, review),
 		// 				value: 0 // No value/ETH
 		// 			})
 		// 		})
 		// 	);
 
 		return
-			0x3100000000000000000000000000000000000000000000000000000000000000;
+			0x0d455486a3dadeacfba5f340fe5bf84d1f6678b2e2af53536acc8a4274626f82;
 	}
 }
