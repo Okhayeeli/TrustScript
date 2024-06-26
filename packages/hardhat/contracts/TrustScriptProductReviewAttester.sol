@@ -37,22 +37,19 @@ contract TrustScriptProductReviewAttester {
 		string memory review,
 		address sellerAddress
 	) external returns (bytes32 attestationUID) {
-		// return
-		// 	eas.attest(
-		// 		AttestationRequest({
-		// 			schema: productReviewSchemaUID,
-		// 			data: AttestationRequestData({
-		// 				recipient: sellerAddress,
-		// 				expirationTime: NO_EXPIRATION_TIME, // No expiration time
-		// 				revocable: true,
-		// 				refUID: EMPTY_UID, // No references UI
-		// 				data: abi.encode(productId, buyerAddress, review),
-		// 				value: 0 // No value/ETH
-		// 			})
-		// 		})
-		// 	);
-
 		return
-			0x0d455486a3dadeacfba5f340fe5bf84d1f6678b2e2af53536acc8a4274626f82;
+			eas.attest(
+				AttestationRequest({
+					schema: productReviewSchemaUID,
+					data: AttestationRequestData({
+						recipient: sellerAddress,
+						expirationTime: NO_EXPIRATION_TIME, // No expiration time
+						revocable: true,
+						refUID: EMPTY_UID, // No references UI
+						data: abi.encode(productId, buyerAddress, review),
+						value: 0 // No value/ETH
+					})
+				})
+			);
 	}
 }

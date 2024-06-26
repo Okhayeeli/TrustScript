@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { formatEther } from "viem";
 import { useDeployedContractInfo, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
@@ -12,6 +12,7 @@ interface Product {
 }
 
 export const ProductCard: FC<{ product: Product }> = ({ product }) => {
+  const router = useRouter();
   const { data: trustScriptShopContractData } = useDeployedContractInfo("TrustScriptShop");
   const { writeContractAsync: writeTrustScriptShop } = useScaffoldWriteContract("TrustScriptShop");
   const { writeContractAsync: writeTrustScriptToken } = useScaffoldWriteContract("TrustScriptToken");
@@ -34,28 +35,27 @@ export const ProductCard: FC<{ product: Product }> = ({ product }) => {
         <div className="flex flex-col items-center mb-1 space-y-4 w-full">
           <div className="flex items-center justify-between w-full px-14">
             <p className="text-l">{formatEther(product.priceInETH)} ETH</p>
-            <Link href="/addReview">
-              <button
-                className="btn btn-primary ml-4 px-7"
-                onClick={async () => {
-                  try {
-                    await writeTrustScriptShop({
-                      functionName: "buyProductWithETH",
-                      args: [product.id],
-                      value: product.priceInETH,
-                    });
-                  } catch (error) {
-                    console.error("Error buying item with ETH", error);
-                  }
-                }}
-              >
-                Buy
-              </button>
-            </Link>
+            <button
+              className="btn btn-primary ml-4 px-7"
+              onClick={async () => {
+                try {
+                  await writeTrustScriptShop({
+                    functionName: "buyProductWithETH",
+                    args: [product.id],
+                    value: product.priceInETH,
+                  });
+                  router.push("/addReview");
+                } catch (error) {
+                  console.error("Error buying item with ETH", error);
+                }
+              }}
+            >
+              Buy
+            </button>
           </div>
 
-          <div className="flex items-center justify-between w-full px-14">
-            <p className="text-l">{formatEther(product.priceInToken)} TST</p>
+          <div className="flex items-center justify-between">
+            <p>{formatEther(product.priceInToken)} TST</p>
             <button
               className="btn btn-primary ml-4 px-5"
               onClick={async () => {

@@ -1275,7 +1275,7 @@ const deployedContracts = {
   },
   84532: {
     TrustScriptProductReviewAttester: {
-      address: "0x80Eb3ccE63E5beDFe067e56e8c3dCCcbf1522247",
+      address: "0x3255CcC2FEc602e35879fEaf12Fd4b787e43Da4B",
       abi: [
         {
           inputs: [
@@ -1301,26 +1301,19 @@ const deployedContracts = {
         {
           inputs: [
             {
-              components: [
-                {
-                  internalType: "uint256",
-                  name: "productId",
-                  type: "uint256",
-                },
-                {
-                  internalType: "address",
-                  name: "buyerAddress",
-                  type: "address",
-                },
-                {
-                  internalType: "string",
-                  name: "review",
-                  type: "string",
-                },
-              ],
-              internalType: "struct ProductReview",
-              name: "productReview",
-              type: "tuple",
+              internalType: "uint256",
+              name: "productId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "buyerAddress",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "review",
+              type: "string",
             },
             {
               internalType: "address",
@@ -1369,7 +1362,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     TrustScriptShop: {
-      address: "0x97D12fC6cdfa2232AA5AEa3Eea9872ddE8D78E3D",
+      address: "0xd336CBb476B704Ba8c0CbAaaE4911615240dEd86",
       abi: [
         {
           inputs: [
@@ -1391,6 +1384,17 @@ const deployedContracts = {
           ],
           stateMutability: "nonpayable",
           type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "attesterAddress",
+              type: "address",
+            },
+          ],
+          name: "TrustScriptShop__DisallowedAttester",
+          type: "error",
         },
         {
           inputs: [
@@ -1417,17 +1421,6 @@ const deployedContracts = {
             },
           ],
           name: "TrustScriptShop__NotExistedProductId",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "attesterAddress",
-              type: "address",
-            },
-          ],
-          name: "TrustScriptShop__UnauthorizedAttester",
           type: "error",
         },
         {
@@ -1482,6 +1475,12 @@ const deployedContracts = {
           anonymous: false,
           inputs: [
             {
+              indexed: false,
+              internalType: "address",
+              name: "sellerAddress",
+              type: "address",
+            },
+            {
               components: [
                 {
                   internalType: "uint256",
@@ -1517,6 +1516,12 @@ const deployedContracts = {
           anonymous: false,
           inputs: [
             {
+              indexed: false,
+              internalType: "address",
+              name: "buyerAddress",
+              type: "address",
+            },
+            {
               components: [
                 {
                   internalType: "uint256",
@@ -1551,6 +1556,12 @@ const deployedContracts = {
         {
           anonymous: false,
           inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "buyerAddress",
+              type: "address",
+            },
             {
               components: [
                 {
@@ -1589,7 +1600,7 @@ const deployedContracts = {
             {
               indexed: false,
               internalType: "address",
-              name: "beneficiary",
+              name: "buyerAddress",
               type: "address",
             },
             {
@@ -1625,7 +1636,18 @@ const deployedContracts = {
           anonymous: false,
           inputs: [
             {
+              indexed: false,
+              internalType: "address",
+              name: "buyerAddress",
+              type: "address",
+            },
+            {
               components: [
+                {
+                  internalType: "bytes32",
+                  name: "attestationUID",
+                  type: "bytes32",
+                },
                 {
                   internalType: "uint256",
                   name: "productId",
@@ -1643,15 +1665,9 @@ const deployedContracts = {
                 },
               ],
               indexed: false,
-              internalType: "struct ProductReview",
+              internalType: "struct TrustScriptShop.ProductReview",
               name: "productReview",
               type: "tuple",
-            },
-            {
-              indexed: false,
-              internalType: "bytes32",
-              name: "uid",
-              type: "bytes32",
             },
           ],
           name: "ReviewProduct",
@@ -1801,6 +1817,11 @@ const deployedContracts = {
             {
               components: [
                 {
+                  internalType: "bytes32",
+                  name: "attestationUID",
+                  type: "bytes32",
+                },
+                {
                   internalType: "uint256",
                   name: "productId",
                   type: "uint256",
@@ -1816,7 +1837,7 @@ const deployedContracts = {
                   type: "string",
                 },
               ],
-              internalType: "struct ProductReview[]",
+              internalType: "struct TrustScriptShop.ProductReview[]",
               name: "allProductReviews",
               type: "tuple[]",
             },
@@ -1908,6 +1929,11 @@ const deployedContracts = {
           ],
           name: "productReviewsArray",
           outputs: [
+            {
+              internalType: "bytes32",
+              name: "attestationUID",
+              type: "bytes32",
+            },
             {
               internalType: "uint256",
               name: "productId",
@@ -2100,7 +2126,7 @@ const deployedContracts = {
       },
     },
     TrustScriptToken: {
-      address: "0x519bFCA72320728dFfD698D9cE8b7FC6f4955431",
+      address: "0xE7B11a5691d0B190C4a9c5fcc67cfc2daE7bE8Ef",
       abi: [
         {
           inputs: [
@@ -2121,7 +2147,7 @@ const deployedContracts = {
               type: "address",
             },
           ],
-          name: "TrustScriptToken__UnauthorizedMinter",
+          name: "TrustScriptToken__DisallowedMinter",
           type: "error",
         },
         {

@@ -12,12 +12,12 @@ export const TSTBalance: FC = () => {
   });
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto">
       {isTokenBalanceLoading ? (
         <span className="loading loading-spinner"></span>
       ) : (
         <h2 className="text-xl font-bold text-center mb-4 mt-3">
-          Your token Balance: {formatEther(tokenBalance || BigInt(0))} TST
+          Token Balance: {formatEther(tokenBalance || BigInt(0))} TST
         </h2>
       )}
     </div>
