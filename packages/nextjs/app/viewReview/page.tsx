@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { NextPage } from "next";
 import { Address } from "~~/components/scaffold-eth";
@@ -66,16 +67,31 @@ const mockProducts: Product[] = [
 ];
 
 const ProductReviews: NextPage = () => {
-  const { isLoading: isProductReviewsLoading } = useScaffoldReadContract({
+  const [productReviews, setProductReviews] = useState<ProductReview[]>(mockAllProductReviews);
+
+  const { data: allProductReviews, isLoading: isProductReviewsLoading } = useScaffoldReadContract({
     contractName: "TrustScriptShop",
     functionName: "getAllProductReviews",
   });
+
+  useEffect(() => {
+    if (allProductReviews) {
+      // Assuming `allProductReviews` is in the same format as `mockAllProductReviews`
+      const newReviews = (allProductReviews as unknown as ProductReview[]).filter(
+        (newReview: { attestationUID: string }) =>
+          !productReviews.some(existingReview => existingReview.attestationUID === newReview.attestationUID),
+      );
+      if (newReviews.length > 0) {
+        setProductReviews(prevReviews => [...prevReviews, ...(newReviews as ProductReview[])]);
+      }
+    }
+  }, [allProductReviews, productReviews]);
 
   if (isProductReviewsLoading) {
     return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
   }
 
-  const productReviewData = mockAllProductReviews
+  const productReviewData = productReviews
     .map(review => {
       const product = mockProducts.find(p => p.id === review.productId);
       return product ? { review, product } : null;
