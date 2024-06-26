@@ -5,14 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
-import {
-  BaseFaucetsButton,
-  FaucetButton,
-  RainbowKitCustomConnectButton,
-  SuperchainFaucetButton,
-} from "~~/components/scaffold-eth";
-import { useOutsideClick } from "~~/hooks/scaffold-eth";
+import { useAccount } from "wagmi";
+import { Bars3Icon, ChatBubbleLeftRightIcon, CheckIcon, PencilIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import { useOutsideClick, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 
 type HeaderMenuLink = {
   label: string;
@@ -26,10 +22,25 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/",
   },
   {
-    label: "Debug Contracts",
-    href: "/debug",
-    icon: <BugAntIcon className="h-4 w-4" />,
+    label: "Review Purchases",
+    href: "/addReview",
+    icon: <PencilIcon className="h-4 w-4" />,
   },
+  {
+    label: "Product Reviews",
+    href: "/viewReview",
+    icon: <ChatBubbleLeftRightIcon className="h-4 w-4" />,
+  },
+  // {
+  //   label: "Events",
+  //   href: "/events",
+  //   icon: <BoltIcon className="h-4 w-4" />,
+  // },
+  // {
+  //   label: "Debug Contracts",
+  //   href: "/debug",
+  //   icon: <BugAntIcon className="h-4 w-4" />,
+  // },
 ];
 
 export const HeaderMenuLinks = () => {
@@ -71,6 +82,14 @@ export const Header = () => {
 
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === "dark";
+
+  const { address } = useAccount();
+
+  const { data: isAllowedAttester } = useScaffoldReadContract({
+    contractName: "TrustScriptShop",
+    functionName: "allowedAttesters",
+    args: [address],
+  });
 
   return (
     <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 shadow-md shadow-secondary px-0 sm:px-2">
@@ -116,10 +135,21 @@ export const Header = () => {
         </ul>
       </div>
       <div className="navbar-end flex-grow mr-4">
+        {address ? (
+          isAllowedAttester ? (
+            <button className="btn btn-secondary btn-sm px-2 rounded-full">
+              Allowed Attester
+              <CheckIcon className="w-6 h-6" />
+            </button>
+          ) : (
+            <button className="btn btn-secondary btn-sm px-2 rounded-full">
+              Allowed Attester
+              <XMarkIcon className="w-6 h-6" />
+            </button>
+          )
+        ) : null}
         <RainbowKitCustomConnectButton />
         <FaucetButton />
-        <SuperchainFaucetButton />
-        <BaseFaucetsButton />
       </div>
     </div>
   );
