@@ -17,7 +17,7 @@ const Home: NextPage = () => {
         {isProductsLoading ? (
           <span className="loading loading-spinner"></span>
         ) : (
-          <div className="container mx-auto p-4">
+          <div className="container mx-auto p-4 flex flex-col items-center">
             <h1 className="text-5xl font-bold italic text-center mb-4 mt-3">Trust Products</h1>
             <TSTBalance />
             <div className="flex flex-wrap justify-center gap-4">

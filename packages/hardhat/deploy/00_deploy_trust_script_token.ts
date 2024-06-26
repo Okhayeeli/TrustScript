@@ -22,26 +22,26 @@ const deployTrustScriptToken: DeployFunction = async function (hre: HardhatRunti
   const { deploy } = hre.deployments;
 
   // Base Sepolia
-  // await deploy("TrustScriptToken", {
-  //   from: deployer,
-  //   // Contract constructor arguments
-  //   args: ["0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"],
-  //   log: true,
-  //   //   // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
-  //   //   // automatically mining the contract deployment transaction. There is no effect on live networks.
-  //   autoMine: true,
-  // });
-
-  // Localhost
   await deploy("TrustScriptToken", {
     from: deployer,
     // Contract constructor arguments
-    args: ["0xc9a57d319f875A4EdC48b4efE89c803daBCFA71c"],
+    args: ["0x35fAadD6fC68619b72A7Bfb871eDcC069C2f1bc3"],
     log: true,
-    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
-    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    //   // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    //   // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
+
+  // // Localhost
+  // await deploy("TrustScriptToken", {
+  //   from: deployer,
+  //   // Contract constructor arguments
+  //   args: ["0x1Db9A0a2eD105aBf4862337084C907f5763aD491"],
+  //   log: true,
+  //   // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+  //   // automatically mining the contract deployment transaction. There is no effect on live networks.
+  //   autoMine: true,
+  // });
 };
 
 export default deployTrustScriptToken;

@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
 interface AddReviewCardProps {
@@ -10,6 +10,7 @@ interface AddReviewCardProps {
 }
 
 export const AddReviewCard: FC<AddReviewCardProps> = ({ productName, productImage, id }) => {
+  const router = useRouter();
   const [review, setReview] = useState<string>();
   const { writeContractAsync: writeTrustScriptShop } = useScaffoldWriteContract("TrustScriptShop");
 
@@ -18,7 +19,7 @@ export const AddReviewCard: FC<AddReviewCardProps> = ({ productName, productImag
   };
 
   return (
-    <div className="card w-full bg-base-100 shadow-xl m-4 rounded-lg overflow-hidden border border-gray-300">
+    <div className="card w-full bg-base-100 shadow-xl m-4 rounded-box">
       <div className="flex flex-col md:flex-row items-center p-4">
         <div className="flex-shrink-1">
           <Image
@@ -37,28 +38,27 @@ export const AddReviewCard: FC<AddReviewCardProps> = ({ productName, productImag
             <input
               type="text"
               className="input input-bordered flex-grow mr-2"
-              placeholder="Write your review here"
+              placeholder="Write your review here!"
               value={review}
               onChange={handleReviewChange}
             />
             <br />
-            <Link href="/viewReview">
-              <button
-                className="btn btn-primary"
-                onClick={async () => {
-                  try {
-                    await writeTrustScriptShop({
-                      functionName: "reviewProduct",
-                      args: [id, review],
-                    });
-                  } catch (error) {
-                    console.error("Error reviewing the product", error);
-                  }
-                }}
-              >
-                Attest
-              </button>
-            </Link>
+            <button
+              className="btn btn-primary"
+              onClick={async () => {
+                try {
+                  await writeTrustScriptShop({
+                    functionName: "reviewProduct",
+                    args: [id, review],
+                  });
+                  router.push("/viewReview");
+                } catch (error) {
+                  console.error("Error reviewing the product", error);
+                }
+              }}
+            >
+              Attest
+            </button>
           </div>
         </div>
       </div>
