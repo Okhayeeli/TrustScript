@@ -62,7 +62,7 @@ const deployTrustScriptShop: DeployFunction = async function (hre: HardhatRuntim
   // await trustScriptShop.transferOwnership("0x35fAadD6fC68619b72A7Bfb871eDcC069C2f1bc3");
 
   // Localhost
-  await trustScriptShop.transferOwnership("0x1Db9A0a2eD105aBf4862337084C907f5763aD491");
+  await trustScriptShop.transferOwnership("0xc9a57d319f875A4EdC48b4efE89c803daBCFA71c");
 };
 
 export default deployTrustScriptShop;
