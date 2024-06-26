@@ -22,15 +22,21 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/",
   },
   {
+    label: "Add Review",
+    href: "/addReview",
+    icon: <BoltIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Reviews",
+    href: "/viewReview",
+    icon: <BoltIcon className="h-4 w-4" />,
+  },
+  {
     label: "Events",
     href: "/events",
     icon: <BoltIcon className="h-4 w-4" />,
   },
-  {
-    label: "Review",
-    href: "/viewReview",
-    icon: <BoltIcon className="h-4 w-4" />,
-  },
+
   {
     label: "Debug Contracts",
     href: "/debug",

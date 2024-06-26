@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { formatEther } from "viem";
 import { useDeployedContractInfo, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
@@ -33,22 +34,24 @@ export const ProductCard: FC<{ product: Product }> = ({ product }) => {
         <div className="flex flex-col items-center mb-1 space-y-4 w-full">
           <div className="flex items-center justify-between w-full px-14">
             <p className="text-l">{formatEther(product.priceInETH)} ETH</p>
-            <button
-              className="btn btn-primary ml-4 px-7"
-              onClick={async () => {
-                try {
-                  await writeTrustScriptShop({
-                    functionName: "buyProductWithETH",
-                    args: [product.id],
-                    value: product.priceInETH,
-                  });
-                } catch (error) {
-                  console.error("Error buying item with ETH", error);
-                }
-              }}
-            >
-              Buy
-            </button>
+            <Link href="/addReview">
+              <button
+                className="btn btn-primary ml-4 px-7"
+                onClick={async () => {
+                  try {
+                    await writeTrustScriptShop({
+                      functionName: "buyProductWithETH",
+                      args: [product.id],
+                      value: product.priceInETH,
+                    });
+                  } catch (error) {
+                    console.error("Error buying item with ETH", error);
+                  }
+                }}
+              >
+                Buy
+              </button>
+            </Link>
           </div>
 
           <div className="flex items-center justify-between w-full px-14">
