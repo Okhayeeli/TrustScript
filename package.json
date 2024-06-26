@@ -41,5 +41,8 @@
   },
   "resolutions": {
     "@coinbase/wallet-sdk": "4.0.0-beta.7"
+  },
+  "dependencies": {
+    "@ethereum-attestation-service/eas-sdk": "^2.3.0"
   }
 }

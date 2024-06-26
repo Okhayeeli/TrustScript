@@ -54,12 +54,15 @@ const deployTrustScriptShop: DeployFunction = async function (hre: HardhatRuntim
       priceInToken: hre.ethers.parseEther((1 * i).toString()),
     };
 
-    console.log(`Adding product ${i} to TS Shop`);
+    console.log(`Adding product ${i} to TrustScript Shop`);
     await trustScriptShop.addProduct(product);
   }
 
-  // Transfer ownership
-  await trustScriptShop.transferOwnership("0x93496ef70EA5A1635B52CdEcbB73cc0360619cE7");
+  // Base Sepolia
+  // await trustScriptShop.transferOwnership("0x35fAadD6fC68619b72A7Bfb871eDcC069C2f1bc3");
+
+  // Localhost
+  await trustScriptShop.transferOwnership("0x1Db9A0a2eD105aBf4862337084C907f5763aD491");
 };
 
 export default deployTrustScriptShop;

@@ -14,6 +14,13 @@ contract TrustScriptShop is Ownable {
 		uint256 priceInToken;
 	}
 
+	struct ProductReview {
+		bytes32 attestationUID;
+		uint256 productId;
+		address buyerAddress;
+		string review;
+	}
+
 	TrustScriptToken public trustScriptToken;
 	uint256 public constant TOKENS_PER_ETH = 1000;
 	uint256 public constant REVIEW_PRODUCT_REWARD = 5;
@@ -21,14 +28,16 @@ contract TrustScriptShop is Ownable {
 	Product[] public productsArray;
 	mapping(uint256 => Product) public products;
 	uint256 public numberOfProducts;
+	ProductReview[] public productReviewsArray;
+	uint256 public numberOfProductReviews;
 	mapping(address => bool) public allowedAttesters;
 	TrustScriptProductReviewAttester public trustScriptProductReviewAttester;
 
-	event AddProduct(Product product);
-	event BuyProductWithETH(Product product);
-	event BuyProductWithToken(Product product);
-	event ReviewProduct(ProductReview productReview, bytes32 uid);
-	event MintTokenToBuyer(address beneficiary, uint256 amountOfToken);
+	event AddProduct(address sellerAddress, Product product);
+	event BuyProductWithETH(address buyerAddress, Product product);
+	event BuyProductWithToken(address buyerAddress, Product product);
+	event ReviewProduct(address buyerAddress, ProductReview productReview);
+	event MintTokenToBuyer(address buyerAddress, uint256 amountOfToken);
 	event WithdrawETH(uint256 amountOfETH);
 	event WithdrawToken(uint256 amountOfToken);
 
@@ -47,11 +56,11 @@ contract TrustScriptShop is Ownable {
 		uint256 priceInToken
 	);
 	error TrustScriptShop__FailedToSendETH();
-	error TrustScriptShop__UnauthorizedAttester(address attesterAddress);
+	error TrustScriptShop__DisallowedAttester(address attesterAddress);
 
 	modifier onlyAllowedAttesters() {
 		if (!allowedAttesters[msg.sender])
-			revert TrustScriptShop__UnauthorizedAttester(msg.sender);
+			revert TrustScriptShop__DisallowedAttester(msg.sender);
 		_;
 	}
 
@@ -89,7 +98,7 @@ contract TrustScriptShop is Ownable {
 		products[product.id] = product;
 		numberOfProducts++;
 
-		emit AddProduct(product);
+		emit AddProduct(msg.sender, product);
 	}
 
 	function buyProductWithETH(uint256 id) public payable {
@@ -114,7 +123,7 @@ contract TrustScriptShop is Ownable {
 			revert TrustScriptShop__FailedToSendETH();
 		}
 
-		emit BuyProductWithETH(products[id]);
+		emit BuyProductWithETH(msg.sender, products[id]);
 	}
 
 	function buyProductWithToken(uint256 id, uint256 amountOfToken) public {
@@ -136,7 +145,7 @@ contract TrustScriptShop is Ownable {
 
 		trustScriptToken.transferFrom(msg.sender, owner(), amountOfToken);
 
-		emit BuyProductWithToken(products[id]);
+		emit BuyProductWithToken(msg.sender, products[id]);
 	}
 
 	function reviewProduct(
@@ -147,23 +156,30 @@ contract TrustScriptShop is Ownable {
 			revert TrustScriptShop__NotExistedProductId(id);
 		}
 
+		bytes32 attestationUID = trustScriptProductReviewAttester
+			.attestProductReview(id, msg.sender, review, owner());
+
 		ProductReview memory productReview = ProductReview(
+			attestationUID,
 			id,
 			msg.sender,
 			review
 		);
 
-		bytes32 attestationUID = trustScriptProductReviewAttester
-			.attestProductReview(productReview, owner());
+		emit ReviewProduct(msg.sender, productReview);
 
-		emit ReviewProduct(productReview, attestationUID);
+		productReviewsArray.push(productReview);
+		numberOfProductReviews++;
 
 		trustScriptToken.mint(
 			msg.sender,
 			REVIEW_PRODUCT_REWARD * 10 ** trustScriptToken.decimals()
 		);
 
-		emit MintTokenToBuyer(msg.sender, REVIEW_PRODUCT_REWARD);
+		emit MintTokenToBuyer(
+			msg.sender,
+			REVIEW_PRODUCT_REWARD * 10 ** trustScriptToken.decimals()
+		);
 	}
 
 	function withdrawETH() public onlyOwner {
@@ -198,5 +214,21 @@ contract TrustScriptShop is Ownable {
 			allProducts[i] = productsArray[i];
 		}
 		return allProducts;
+	}
+
+	function getAllProductReviews()
+		public
+		view
+		returns (ProductReview[] memory allProductReviews)
+	{
+		if (numberOfProductReviews == 0) {
+			return new ProductReview[](0);
+		}
+
+		allProductReviews = new ProductReview[](numberOfProductReviews);
+		for (uint i = 0; i < numberOfProductReviews; i++) {
+			allProductReviews[i] = productReviewsArray[i];
+		}
+		return allProductReviews;
 	}
 }
