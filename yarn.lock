@@ -7292,7 +7292,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^6.11.1":
+"ethers@npm:^6.11.1, ethers@npm:^6.13.1":
   version: 6.13.1
   resolution: "ethers@npm:6.13.1"
   dependencies:
@@ -12960,6 +12960,7 @@ __metadata:
   resolution: "se-2@workspace:."
   dependencies:
     "@ethereum-attestation-service/eas-sdk": ^2.3.0
+    ethers: ^6.13.1
     husky: ^8.0.1
     lint-staged: ^13.0.3
   languageName: unknown
