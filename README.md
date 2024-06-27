@@ -1,3 +1,23 @@
+## General idea / Description (The problem it solves)
+  TrustShop tackles online marketplace woes: lack of trust, low-quality reviews, and unclear transactions. By rewarding honest reviews with TST tokens on the blockchain, TrustShop incentivizes user participation, promotes product quality, and fosters a secure and transparent shopping experience.
+
+ ## Technologies we used
+  - Ethereum
+  - BASE
+  - Solidity
+  - Next.js
+  - Hardhat
+  - Scaffold-ETH 2
+  - Ethereum Attestation Service
+
+ ## How to run a transaction on TrustShop
+  - Enter the app and add connect your wallet
+  - make sure you have enough eth to purchase
+  - once you have bought and paid you will directed to Review page, where you drop your review and      attest.
+
+
+## # our Contracts!!
+
 1. TrustScriptShop contract:
     1. an onchain shop built on  base for sellers to sell product and get paid via eth.
     2. what is unique is that as buyer make a purchase they are redirected to attest what is being bought.
