@@ -126,8 +126,8 @@ export const Header = () => {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">Trust Script</span>
-            <span className="text-xs">On-Chain Check</span>
+            <span className="font-bold leading-tight">TrustShop</span>
+            <span className="text-xs">Shop Smart, Review Honestly, Earn Tokens</span>
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">
