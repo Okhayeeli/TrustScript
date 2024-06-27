@@ -5,7 +5,7 @@
 
 2. TrustScriptProductReviewAttester contract: 
     1. Handles the submission of the review into the 
-    2. stores attestation as Attestation UID which can be view on easscan.org.
+    2. stores attestation as Attestation UID which can be view on easscan.org
 
 3. TrustScriptToken contract: 
     1. store of the Token that is being minted after a buyer successfully attest their review.   
