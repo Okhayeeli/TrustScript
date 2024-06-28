@@ -1,3 +1,5 @@
+# TrustShop
+
 ## The problem it solves
 
 TrustShop tackles online marketplace woes: lack of trust, low-quality reviews, and unclear transactions. By rewarding honest reviews with TST tokens on the blockchain, TrustShop incentivizes user participation, promotes product quality, and fosters a secure and transparent shopping experience.
