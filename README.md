@@ -67,7 +67,9 @@ yarn deploy
 
 This command deploys the smart contracts to the local network. The contracts are located in `packages/hardhat/contracts`. The `yarn deploy` command uses the deploy scripts located in `packages/hardhat/deploy` to deploy the contracts to the network. For the app to work locally you have to allow `TrustScriptShop` to be a minter from `TrustScriptToken` contract, you can do so by calling the `allowMinter` function in the later contract.
 
-1. On a third terminal, start the NextJS app:
+Note: When running locally, you should hard-code a bytes32 returned value in attestProductReview within TrustScriptProductReviewAttester because eas.attest does not function locally. For example: return 0x0d455486a3dadeacfba5f340fe5bf84d1f6678b2e2af53536acc8a4274626f82;
+
+4. On a third terminal, start the NextJS app:
 
 ```
 yarn start
